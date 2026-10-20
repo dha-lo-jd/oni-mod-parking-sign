@@ -1,0 +1,77 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <Import Project="Local.Build.props" Condition="Exists('Local.Build.props')" />
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <ImplicitUsings>disable</ImplicitUsings>
+        <Nullable>disable</Nullable>
+        <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+        <LangVersion>10.0</LangVersion>
+        <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+
+        <GameManagedPath Condition="'$(GameManagedPath)' == ''">$(ONI_GAME_MANAGED_PATH)</GameManagedPath>
+        <ModInstallPath Condition="'$(ModInstallPath)' == ''">$(ONI_MOD_INSTALL_PATH)</ModInstallPath>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Reference Include="0Harmony">
+            <HintPath>$(GameManagedPath)\0Harmony.dll</HintPath>
+        </Reference>
+        <Reference Include="Assembly-CSharp">
+            <HintPath>$(GameManagedPath)\Assembly-CSharp.dll</HintPath>
+        </Reference>
+        <Reference Include="Assembly-CSharp-firstpass">
+            <HintPath>$(GameManagedPath)\Assembly-CSharp-firstpass.dll</HintPath>
+        </Reference>
+        <Reference Include="System.Core">
+            <HintPath>$(GameManagedPath)\System.Core.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine">
+            <HintPath>$(GameManagedPath)\UnityEngine.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.CoreModule">
+            <HintPath>$(GameManagedPath)\UnityEngine.CoreModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.TextRenderingModule">
+            <HintPath>$(GameManagedPath)\UnityEngine.TextRenderingModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.UI">
+            <HintPath>$(GameManagedPath)\UnityEngine.UI.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="PLib" Version="4.25.0">
+            <CopyLocal>true</CopyLocal>
+            <IncludeAssets>all</IncludeAssets>
+            <PrivateAssets>none</PrivateAssets>
+        </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="mod_info.yaml">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="mod.yaml">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(ModInstallPath)' != ''">
+        <MakeDir Directories="$(ModInstallPath)" />
+        <Copy SourceFiles="$(TargetDir)$(TargetName).dll" DestinationFolder="$(ModInstallPath)" />
+        <Copy SourceFiles="$(TargetDir)$(TargetName).pdb" DestinationFolder="$(ModInstallPath)" Condition="Exists('$(TargetDir)$(TargetName).pdb')" />
+        <Copy SourceFiles="$(TargetDir)PLib.dll" DestinationFolder="$(ModInstallPath)" Condition="Exists('$(TargetDir)PLib.dll')" />
+        <Copy SourceFiles="$(ProjectDir)mod_info.yaml" DestinationFolder="$(ModInstallPath)" Condition="Exists('$(ProjectDir)mod_info.yaml')" />
+        <Copy SourceFiles="$(ProjectDir)mod.yaml" DestinationFolder="$(ModInstallPath)" Condition="Exists('$(ProjectDir)mod.yaml')" />
+        <ItemGroup>
+            <ModAnimationFiles Include="$(ProjectDir)ModAssets\anim\**\*.*" Exclude="$(ProjectDir)ModAssets\anim\**\.gitkeep" />
+        </ItemGroup>
+        <Copy
+            SourceFiles="@(ModAnimationFiles)"
+            DestinationFiles="@(ModAnimationFiles->'$(ModInstallPath)\anim\%(RecursiveDir)%(Filename)%(Extension)')"
+            Condition="'@(ModAnimationFiles)' != ''" />
+    </Target>
+
+</Project>

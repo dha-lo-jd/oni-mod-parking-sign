@@ -1,0 +1,6 @@
+supportedContent: ALL
+minimumSupportedBuild: 645000
+version: "1.0.0"
+APIVersion: 2
+title: "Parking Sign"
+description: "Parking Sign mod for Oxygen Not Included."
