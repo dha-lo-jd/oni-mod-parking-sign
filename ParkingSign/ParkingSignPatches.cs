@@ -10,6 +10,7 @@ public static class ParkingSignStatusItems
 {
     public static StatusItem Active;
     public static StatusItem Inactive;
+    public static StatusItem NoStandPoint;
 }
 
 [HarmonyPatch(typeof(GeneratedBuildings), nameof(GeneratedBuildings.LoadGeneratedBuildings))]
@@ -18,6 +19,7 @@ public static class GeneratedBuildings_LoadGeneratedBuildings_Patch
     public static void Prefix()
     {
         ModUtil.AddBuildingToPlanScreen("Utilities", ParkingSignConfig.ID);
+        ModUtil.AddBuildingToPlanScreen("Utilities", HangingParkingSignConfig.ID);
     }
 }
 
@@ -35,7 +37,8 @@ public static class Db_Initialize_ParkingSignStatusItems_Patch
 {
     public static void Postfix(Db __instance)
     {
-        if (ParkingSignStatusItems.Active != null && ParkingSignStatusItems.Inactive != null)
+        if (ParkingSignStatusItems.Active != null && ParkingSignStatusItems.Inactive != null &&
+            ParkingSignStatusItems.NoStandPoint != null)
         {
             return;
         }
@@ -58,6 +61,16 @@ public static class Db_Initialize_ParkingSignStatusItems_Patch
             false,
             OverlayModes.None.ID,
             false));
+        ParkingSignStatusItems.NoStandPoint = __instance.BuildingStatusItems.Add(new StatusItem(
+            "ParkingSignNoStandPoint",
+            "BUILDING",
+            "status_item_missing_foundation",
+            StatusItem.IconType.Custom,
+            NotificationType.Bad,
+            false,
+            OverlayModes.None.ID,
+            true,
+            63486));
     }
 }
 

@@ -50,6 +50,13 @@ public sealed class ParkingSignSideScreen : SideScreenContent
             return;
         }
 
+        PPanel root = new PPanel("ParkingSignContent")
+        {
+            Direction = PanelDirection.Vertical,
+            Alignment = TextAnchor.UpperLeft,
+            Spacing = 4,
+            FlexSize = Vector2.one
+        };
         PPanel panel = new PPanel("ParkingSignMinionList")
         {
             Direction = PanelDirection.Vertical,
@@ -92,7 +99,7 @@ public sealed class ParkingSignSideScreen : SideScreenContent
             {
                 Text = minion.GetProperName(),
                 TextStyle = PUITuning.Fonts.TextDarkStyle,
-                FlexSize = Vector2.right
+                TextAlignment = TextAnchor.MiddleLeft
             };
             row.AddChild(name);
 
@@ -110,7 +117,8 @@ public sealed class ParkingSignSideScreen : SideScreenContent
             TrackSize = 8f,
             FlexSize = Vector2.one
         };
-        scrollPane.AddOnRealize(realizedPanel => listPanel = realizedPanel);
+        root.AddChild(scrollPane);
+        root.AddOnRealize(realizedPanel => listPanel = realizedPanel);
         GameObject parent = ContentContainer != null ? ContentContainer : gameObject;
         if (parent == null)
         {
@@ -118,7 +126,7 @@ public sealed class ParkingSignSideScreen : SideScreenContent
             return;
         }
 
-        scrollPane.AddTo(parent);
+        root.AddTo(parent);
     }
 
     private static void AddPortrait(GameObject parent, MinionIdentity minion, int instanceId, int siblingIndex)
@@ -165,5 +173,6 @@ public sealed class ParkingSignSideScreen : SideScreenContent
         bool selected = state != PCheckBox.STATE_CHECKED;
         PCheckBox.SetCheckState(source, selected ? PCheckBox.STATE_CHECKED : PCheckBox.STATE_UNCHECKED);
         target.SetMinionSelected(instanceId, selected);
+        RebuildList();
     }
 }

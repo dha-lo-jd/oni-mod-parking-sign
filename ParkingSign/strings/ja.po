@@ -1,0 +1,89 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PO Editor\n"
+"Application: Oxygen Not IncludedPOT Version: 2.0\n"
+"Language: ja_JP\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+
+msgctxt "ParkingSign.STRINGS.BUILDING.STATUSITEMS.PARKINGSIGNACTIVE.NAME"
+msgid "Active"
+msgstr "作動中"
+
+msgctxt "ParkingSign.STRINGS.BUILDING.STATUSITEMS.PARKINGSIGNACTIVE.TOOLTIP"
+msgid "The Parking Sign is receiving a Green signal."
+msgstr "停留所は<color=#00FF00>グリーン</color>信号を受信しています。"
+
+msgctxt "ParkingSign.STRINGS.BUILDING.STATUSITEMS.PARKINGSIGNINACTIVE.NAME"
+msgid "Inactive"
+msgstr "停止中"
+
+msgctxt "ParkingSign.STRINGS.BUILDING.STATUSITEMS.PARKINGSIGNINACTIVE.TOOLTIP"
+msgid "The Parking Sign is not receiving a Green signal."
+msgstr "停留所は<color=#00FF00>グリーン</color>信号を受信していません。"
+
+msgctxt "ParkingSign.STRINGS.BUILDING.STATUSITEMS.PARKINGSIGNNOSTANDPOINT.NAME"
+msgid "<color=#FF0000>No standing tile</color>"
+msgstr "<color=#FF0000>立てる足場がありません</color>"
+
+msgctxt "ParkingSign.STRINGS.BUILDING.STATUSITEMS.PARKINGSIGNNOSTANDPOINT.TOOLTIP"
+msgid "<color=#FF0000>No tile where a Duplicant can stand was found within 10 tiles below this sign.</color>"
+msgstr "<color=#FF0000>この看板の下方10タイル以内に、複製人間が立てる足場が見つかりません。</color>"
+
+msgctxt "ParkingSign.STRINGS.UI.PARKINGSIGN.SIDESCREEN_TITLE"
+msgid "Parking Sign"
+msgstr "停留所"
+
+msgctxt "ParkingSign.STRINGS.BUILDINGS.PREFABS.PARKINGSIGN.NAME"
+msgid "Parking Sign"
+msgstr "停留所"
+
+msgctxt "ParkingSign.STRINGS.BUILDINGS.PREFABS.PARKINGSIGN.DESC"
+msgid "A sign for marking a parking space."
+msgstr "停留所を示す看板です。"
+
+msgctxt "ParkingSign.STRINGS.BUILDINGS.PREFABS.PARKINGSIGN.EFFECT"
+msgid "Becomes Active when receiving a <color=#00FF00>Green</color> signal."
+msgstr "<color=#00FF00>グリーン</color>信号を受信すると作動します。"
+
+msgctxt "ParkingSign.STRINGS.BUILDINGS.PREFABS.PARKINGSIGN.LOGIC_PORT"
+msgid "Parking Sign"
+msgstr "停留所"
+
+msgctxt "ParkingSign.STRINGS.BUILDINGS.PREFABS.PARKINGSIGN.LOGIC_PORT_ACTIVE"
+msgid "Active"
+msgstr "作動中"
+
+msgctxt "ParkingSign.STRINGS.BUILDINGS.PREFABS.PARKINGSIGN.LOGIC_PORT_INACTIVE"
+msgid "Inactive"
+msgstr "停止中"
+
+msgctxt "ParkingSign.STRINGS.BUILDINGS.PREFABS.HANGINGPARKINGSIGN.NAME"
+msgid "Hanging Parking Sign"
+msgstr "吊り下げ停留所"
+
+msgctxt "ParkingSign.STRINGS.BUILDINGS.PREFABS.HANGINGPARKINGSIGN.DESC"
+msgid "A sign for marking a parking space."
+msgstr "停留所を示す看板です。"
+
+msgctxt "ParkingSign.STRINGS.BUILDINGS.PREFABS.HANGINGPARKINGSIGN.EFFECT"
+msgid "Becomes Active when receiving a <color=#00FF00>Green</color> signal."
+msgstr "<color=#00FF00>グリーン</color>信号を受信すると作動します。"
+
+msgctxt "ParkingSign.STRINGS.BUILDINGS.PREFABS.HANGINGPARKINGSIGN.LOGIC_PORT"
+msgid "Hanging Parking Sign"
+msgstr "吊り下げ停留所"
+
+msgctxt "ParkingSign.STRINGS.BUILDINGS.PREFABS.HANGINGPARKINGSIGN.LOGIC_PORT_ACTIVE"
+msgid "Active"
+msgstr "作動中"
+
+msgctxt "ParkingSign.STRINGS.BUILDINGS.PREFABS.HANGINGPARKINGSIGN.LOGIC_PORT_INACTIVE"
+msgid "Inactive"
+msgstr "停止中"

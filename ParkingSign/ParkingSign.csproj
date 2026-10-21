@@ -42,6 +42,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="ILRepack.MSBuild.Task" Version="2.0.13" />
         <PackageReference Include="PLib" Version="4.25.0">
             <CopyLocal>true</CopyLocal>
             <IncludeAssets>all</IncludeAssets>
@@ -58,13 +59,30 @@
         </None>
     </ItemGroup>
 
-    <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(ModInstallPath)' != ''">
+    <Target Name="MergeAssemblies" AfterTargets="PostBuildEvent" Condition="Exists('$(TargetDir)PLib.dll')">
+        <PropertyGroup>
+            <ILRepackExe>$(NuGetPackageRoot)ilrepack.msbuild.task\2.0.13\tools\ilrepack.exe</ILRepackExe>
+            <ILRepackDebugFlag Condition="'$(Configuration)' == 'Release'">/ndebug</ILRepackDebugFlag>
+        </PropertyGroup>
+        <Delete Files="$(ModInstallPath)\$(TargetName).pdb" Condition="'$(Configuration)' == 'Release' and '$(ModInstallPath)' != '' and Exists('$(ModInstallPath)\$(TargetName).pdb')" />
+        <RemoveDir Directories="$(TargetDir)merged" />
+        <MakeDir Directories="$(TargetDir)merged" />
+        <Exec Command="&quot;$(ILRepackExe)&quot; /parallel $(ILRepackDebugFlag) /lib:&quot;$(GameManagedPath)&quot; /out:&quot;$(TargetDir)merged\$(TargetFileName)&quot; &quot;$(TargetPath)&quot; &quot;$(TargetDir)PLib.dll&quot;" />
+    </Target>
+
+    <Target Name="PostBuild" AfterTargets="MergeAssemblies" Condition="'$(ModInstallPath)' != ''">
         <MakeDir Directories="$(ModInstallPath)" />
-        <Copy SourceFiles="$(TargetDir)$(TargetName).dll" DestinationFolder="$(ModInstallPath)" />
-        <Copy SourceFiles="$(TargetDir)$(TargetName).pdb" DestinationFolder="$(ModInstallPath)" Condition="Exists('$(TargetDir)$(TargetName).pdb')" />
-        <Copy SourceFiles="$(TargetDir)PLib.dll" DestinationFolder="$(ModInstallPath)" Condition="Exists('$(TargetDir)PLib.dll')" />
+        <Delete Files="$(ModInstallPath)\PLib.dll" Condition="Exists('$(ModInstallPath)\PLib.dll')" />
+        <Copy SourceFiles="$(TargetDir)merged\$(TargetFileName)" DestinationFolder="$(ModInstallPath)" Condition="Exists('$(TargetDir)merged\$(TargetFileName)')" />
+        <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(ModInstallPath)" Condition="!Exists('$(TargetDir)merged\$(TargetFileName)')" />
+        <Copy SourceFiles="$(TargetDir)merged\$(TargetName).pdb" DestinationFolder="$(ModInstallPath)" Condition="Exists('$(TargetDir)merged\$(TargetName).pdb')" />
         <Copy SourceFiles="$(ProjectDir)mod_info.yaml" DestinationFolder="$(ModInstallPath)" Condition="Exists('$(ProjectDir)mod_info.yaml')" />
         <Copy SourceFiles="$(ProjectDir)mod.yaml" DestinationFolder="$(ModInstallPath)" Condition="Exists('$(ProjectDir)mod.yaml')" />
+        <ItemGroup>
+            <ModStringFiles Include="$(ProjectDir)strings\*.po" />
+        </ItemGroup>
+        <MakeDir Directories="$(ModInstallPath)\strings" Condition="'@(ModStringFiles)' != ''" />
+        <Copy SourceFiles="@(ModStringFiles)" DestinationFolder="$(ModInstallPath)\strings" Condition="'@(ModStringFiles)' != ''" />
         <ItemGroup>
             <ModAnimationFiles Include="$(ProjectDir)ModAssets\anim\**\*.*" Exclude="$(ProjectDir)ModAssets\anim\**\.gitkeep" />
         </ItemGroup>

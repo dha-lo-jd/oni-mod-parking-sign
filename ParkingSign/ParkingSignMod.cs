@@ -1,5 +1,7 @@
 using HarmonyLib;
 using KMod;
+using PeterHan.PLib.Core;
+using PeterHan.PLib.Database;
 
 namespace ParkingSign;
 
@@ -8,6 +10,8 @@ public sealed class ParkingSignMod : UserMod2
     public override void OnLoad(Harmony harmony)
     {
         base.OnLoad(harmony);
+        PUtil.InitLibrary();
+        new PLocalization().Register();
     }
 
     [HarmonyPatch(typeof(Localization), nameof(Localization.Initialize))]

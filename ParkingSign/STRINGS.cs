@@ -19,6 +19,13 @@ public static class STRINGS
                 public static LocString NAME = "Inactive";
                 public static LocString TOOLTIP = "The Parking Sign is not receiving a Green signal.";
             }
+
+            public static class PARKINGSIGNNOSTANDPOINT
+            {
+                public static LocString NAME = "<color=#FF0000>No standing tile</color>";
+                public static LocString TOOLTIP =
+                    "<color=#FF0000>No tile where a Duplicant can stand was found within 10 tiles below this sign.</color>";
+            }
         }
     }
 
@@ -40,6 +47,16 @@ public static class STRINGS
                 public static LocString DESC = "A sign for marking a parking space.";
                 public static LocString EFFECT = "Becomes Active when receiving a <color=#00FF00>Green</color> signal.";
                 public static LocString LOGIC_PORT = "Parking Sign";
+                public static LocString LOGIC_PORT_ACTIVE = "Active";
+                public static LocString LOGIC_PORT_INACTIVE = "Inactive";
+            }
+
+            public static class HANGINGPARKINGSIGN
+            {
+                public static LocString NAME = "Hanging Parking Sign";
+                public static LocString DESC = "A sign for marking a parking space.";
+                public static LocString EFFECT = "Becomes Active when receiving a <color=#00FF00>Green</color> signal.";
+                public static LocString LOGIC_PORT = "Hanging Parking Sign";
                 public static LocString LOGIC_PORT_ACTIVE = "Active";
                 public static LocString LOGIC_PORT_INACTIVE = "Inactive";
             }
